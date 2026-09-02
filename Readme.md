@@ -104,3 +104,5 @@ Response:
 
 - Session memory is in-process (a Python dict) — resets on server restart and does not scale across multiple server instances. A persistent store (e.g. Redis) is the planned upgrade for a later milestone.
 - Only `api_reference`-type docs (the 3 sample pages) are fully ingested and tested end-to-end. FAQ-style content requires a different chunking strategy (implemented separately, not yet merged into the main ingestion path) since it lacks markdown headers to split on.
+
+See `docs/doc_taxonomy.md` for the metadata schema, and `docs/sample_support_questions.md` for the retrieval test cases used to validate this project.
