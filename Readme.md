@@ -28,22 +28,35 @@ retriever.py    # loads the persisted vector store, retrieves + filters relevant
 chain.py         # orchestration: retrieval -> prompt -> LLM -> structured response
 schemas.py      # Pydantic models (SourceMetadata, QueryRequest, QueryResponse, SourceCitation)
 app.py          # FastAPI app + built-in browser test UI
+data/source/    # the 3 sample docs ingested by ingest.py
+docs/           # project reference docs (metadata taxonomy, retrieval test cases)
 ```
+
+See [`docs/doc_taxonomy.md`](docs/doc_taxonomy.md) for the metadata schema (`source_type`, `product_area`, etc.), and [`docs/sample_support_questions.md`](docs/sample_support_questions.md) for the retrieval test cases used to validate this project.
 
 ## Setup
 
-1. Create and activate a virtual environment:
+1. Clone the repo and move into it:
+   ```bash
+   git clone https://github.com/Jridi1/logiflow-docs-assistant.git
+   cd logiflow-docs-assistant
+   ```
+
+2. Create and activate a virtual environment:
    ```bash
    python3 -m venv venv
    source venv/bin/activate
    ```
 
-2. Install dependencies:
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Add your Groq API key to a `.env` file in the project root:
+4. Add your Groq API key — copy `.env.example` to `.env` and fill it in:
+   ```bash
+   cp .env.example .env
+   ```
    ```
    GROQ_API_KEY=your_key_here
    ```
@@ -104,5 +117,3 @@ Response:
 
 - Session memory is in-process (a Python dict) — resets on server restart and does not scale across multiple server instances. A persistent store (e.g. Redis) is the planned upgrade for a later milestone.
 - Only `api_reference`-type docs (the 3 sample pages) are fully ingested and tested end-to-end. FAQ-style content requires a different chunking strategy (implemented separately, not yet merged into the main ingestion path) since it lacks markdown headers to split on.
-
-See `docs/doc_taxonomy.md` for the metadata schema, and `docs/sample_support_questions.md` for the retrieval test cases used to validate this project.
